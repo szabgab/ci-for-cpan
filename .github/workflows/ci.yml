@@ -81,8 +81,8 @@ jobs:
     - name: Install dependency
       if:  ${{ matrix.runner == 'ubuntu-latest' && matrix.module == 'DB_FIle' }}
       run: |
-        apt-get update
-        apt-get install -y libdb-dev
+        sudo apt-get update
+        sudo apt-get install -y libdb-dev
 
     - name: Install Modules
       run: |
