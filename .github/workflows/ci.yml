@@ -63,7 +63,7 @@ jobs:
             perl: '5.36'
 
     runs-on: ${{matrix.runner}}
-    name: OS ${{matrix.runner}} Perl ${{matrix.perl}}
+    name: OS ${{matrix.runner}} Perl ${{matrix.perl}} ${{matrix.module}}
 
     steps:
     - uses: actions/checkout@v2
@@ -81,7 +81,7 @@ jobs:
     - name: Install Modules
       run: |
         cpanm -v
-        cpanm @{{ matrix.module }}
+        cpanm ${{ matrix.module }}
 
     - name: Show Errors on Windows
       if:  ${{ failure() && startsWith( matrix.runner, 'windows-')}}
