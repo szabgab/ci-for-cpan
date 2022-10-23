@@ -15,49 +15,49 @@ jobs:
         runner: [ubuntu-latest] #, macos-latest, windows-latest]
         perl: ['5.36' ]
         module:
-          - 'Dist::Zilla::Plugin::AutoPrereqs'
-          - 'Dist::Zilla::Plugin::Git::Check'
-          - 'Dist::Zilla::Plugin::Git::Commit'
-          - 'Dist::Zilla::Plugin::Git::Push'
-          - 'Dist::Zilla::Plugin::Git::Tag'
-          - 'Dist::Zilla::Plugin::GitHub::Meta'
-          - 'Dist::Zilla::Plugin::InstallGuide'
-          - 'Dist::Zilla::Plugin::MetaJSON'
-          - 'Dist::Zilla::Plugin::ModuleBuild'
-          - 'Dist::Zilla::Plugin::NextRelease'
-          - 'Dist::Zilla::Plugin::NextVersion::Semantic'
-          - 'Dist::Zilla::Plugin::PerlTidy'
-          - 'Dist::Zilla::Plugin::PkgVersion'
-          - 'Dist::Zilla::Plugin::PodSyntaxTests'
-          - 'Dist::Zilla::Plugin::PodWeaver'
-          - 'Dist::Zilla::Plugin::Prereqs'
-          - 'Dist::Zilla::Plugin::PreviousVersion::Changelog'
-          - 'Dist::Zilla::Plugin::Test::CPAN::Changes'
-          - 'Dist::Zilla::Plugin::Test::Perl::Critic'
-          - 'Dist::Zilla::Plugin::Test::UnusedVars'
-          - 'Dist::Zilla::PluginBundle::Basic'
-          - 'Dist::Zilla::PluginBundle::Filter'
-
-          - 'Class::Singleton'
-          - 'Date::Calc'
-          - 'DateTime'
-          - 'DateTime::Format::ISO8601'
+#          - 'Dist::Zilla::Plugin::AutoPrereqs'
+#          - 'Dist::Zilla::Plugin::Git::Check'
+#          - 'Dist::Zilla::Plugin::Git::Commit'
+#          - 'Dist::Zilla::Plugin::Git::Push'
+#          - 'Dist::Zilla::Plugin::Git::Tag'
+#          - 'Dist::Zilla::Plugin::GitHub::Meta'
+#          - 'Dist::Zilla::Plugin::InstallGuide'
+#          - 'Dist::Zilla::Plugin::MetaJSON'
+#          - 'Dist::Zilla::Plugin::ModuleBuild'
+#          - 'Dist::Zilla::Plugin::NextRelease'
+#          - 'Dist::Zilla::Plugin::NextVersion::Semantic'
+#          - 'Dist::Zilla::Plugin::PerlTidy'
+#          - 'Dist::Zilla::Plugin::PkgVersion'
+#          - 'Dist::Zilla::Plugin::PodSyntaxTests'
+#          - 'Dist::Zilla::Plugin::PodWeaver'
+#          - 'Dist::Zilla::Plugin::Prereqs'
+#          - 'Dist::Zilla::Plugin::PreviousVersion::Changelog'
+#          - 'Dist::Zilla::Plugin::Test::CPAN::Changes'
+#          - 'Dist::Zilla::Plugin::Test::Perl::Critic'
+#          - 'Dist::Zilla::Plugin::Test::UnusedVars'
+#          - 'Dist::Zilla::PluginBundle::Basic'
+#          - 'Dist::Zilla::PluginBundle::Filter'
+#
+#          - 'Class::Singleton'
+#          - 'Date::Calc'
+#          - 'DateTime'
+#          - 'DateTime::Format::ISO8601'
           - 'DateTime::Locale'
           - 'DB_File'
-          - 'Exception::Class'
-          - 'File::Compare'
-          - 'File::Slurp'
-          - 'HTTP::Request'
-          - 'IO::Capture::Stderr'
-          - 'LWP::UserAgent'
-          - 'Module::Build'
-          - 'Readonly'
-          - 'Scalar::Util'
-          - 'String::Interpolate::Named'
-          - 'Test::Exception'
-          - 'Test::More'
-          - 'Try::Tiny'
-          - 'YAML::XS'
+#          - 'Exception::Class'
+#          - 'File::Compare'
+#          - 'File::Slurp'
+#          - 'HTTP::Request'
+#          - 'IO::Capture::Stderr'
+#          - 'LWP::UserAgent'
+#          - 'Module::Build'
+#          - 'Readonly'
+#          - 'Scalar::Util'
+#          - 'String::Interpolate::Named'
+#          - 'Test::Exception'
+#          - 'Test::More'
+#          - 'Try::Tiny'
+#          - 'YAML::XS'
         exclude:
           - runner: windows-latest
             perl: '5.36'
@@ -77,6 +77,12 @@ jobs:
     - name: Show Perl Version
       run: |
         perl -v
+
+    - name: Install dependency
+      if:  ${{ matrix.runner == 'ubuntu-latest' && matrix.module == 'DB_FIle' }}
+      run: |
+        apt-get update
+        apt-get install -y libdb-dev
 
     - name: Install Modules
       run: |
